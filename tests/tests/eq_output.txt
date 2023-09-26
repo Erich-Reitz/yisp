@@ -1,0 +1,9 @@
+nil
+a
+t
+t
+nil
+b
+nil
+c
+t
