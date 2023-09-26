@@ -38,15 +38,15 @@ SExpression evaluate(InterpreterObj &interpreter, const ConsCell &conscell) {
     return evaluate(interpreter, sexpr);
   }
   const auto cdr = *std::get<std::shared_ptr<SExpression>>(conscell.second);
-  const auto l_value = car.UnsafeGetStringOfStringOrIden();
+  const auto func_name = car.UnsafeGetStringOfStringOrIden();
 
-  auto it = interpreter.functions.find(l_value);
+  auto it = interpreter.functions.find(func_name);
   if(it != interpreter.functions.end()) {
     return it->second(interpreter, cdr);
   }
 
-
-  std::unreachable();
+  const auto err_string = "Undefined identifier: " + func_name ;
+  throw std::runtime_error(err_string.c_str());
 }
 
 SExpression evaluate(InterpreterObj &interpreter, const SExpression &expression) {
@@ -55,7 +55,7 @@ SExpression evaluate(InterpreterObj &interpreter, const SExpression &expression)
   }, expression.get());
 }
 
-void interpret(std::vector<std::shared_ptr<SExpression>> expressions) {
+int interpret(std::vector<std::shared_ptr<SExpression>> expressions) {
   InterpreterObj interpreter = InterpreterObj();
 
   for (const auto &expression : expressions) {
@@ -63,6 +63,7 @@ void interpret(std::vector<std::shared_ptr<SExpression>> expressions) {
 
     std::cout << result << std::endl;
   }
+  return 0;
 }
 
 

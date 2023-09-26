@@ -8,5 +8,5 @@
 
 namespace yisp::interpreter {
 SExpression evaluate(InterpreterObj &interpreter, const SExpression &expression);
-void interpret(std::vector<std::shared_ptr<SExpression>> expressions);
+int interpret(std::vector<std::shared_ptr<SExpression>> expressions);
 }

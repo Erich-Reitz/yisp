@@ -90,8 +90,8 @@ bool match(Parser &parser, TokenTypes... types) {
   auto &sentinelNext = std::get<ConsCell>(sentinel->get()).second;
   if (std::holds_alternative<std::shared_ptr<SExpression>>(sentinelNext)) {
     return std::get<std::shared_ptr<SExpression>>(sentinelNext);
-  } 
-  
+  }
+
   return nullptr;
 }
 

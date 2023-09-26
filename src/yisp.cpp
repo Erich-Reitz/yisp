@@ -9,8 +9,7 @@ namespace yisp {
 int run(const std::string &contents) {
   const auto tokens = lexer::lex(contents);
   const auto expressions = parser::parse(tokens);
-  interpreter::interpret(expressions);
-  return 0;
+  return interpreter::interpret(expressions);
 }
 
 int runFile(const std::string &sourceFile) {
