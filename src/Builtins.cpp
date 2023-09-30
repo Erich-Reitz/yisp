@@ -29,9 +29,8 @@ SExpression Plus(InterpreterObj &interpreter, const SExpression &arg) {
 SExpression Minus(InterpreterObj &interpreter, const SExpression &arg) {
   CHECK_MIN_ARITY("-", arg, 1);
   auto it =arg.begin();
-  yisp::SExpression result = *it;
+  yisp::SExpression result = evaluate(interpreter, *it);
   ++it;
-
   for (; it != arg.end(); ++it) {
     result = result - evaluate(interpreter, *it);
   }
@@ -149,7 +148,7 @@ SExpression Define(InterpreterObj &interpreter, const SExpression &arg) {
 
     while (paramIt != paramsExpr.end() && argIt != args.end()) {
       const std::string paramName = (*paramIt).UnsafeGetStringOfStringOrIden();
-      const SExpression argValue = *argIt;
+      const SExpression argValue = evaluate(interp, *argIt);
       interp.values[paramName] = argValue;
       ++paramIt;
       ++argIt;

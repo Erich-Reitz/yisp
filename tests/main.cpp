@@ -97,6 +97,12 @@ const static char *integration_test_AND() {
 }
 
 
+const static char *integration_test_factorial() {
+  const std::string test_name = "factorial";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+
 const static char *all_tests() {
   // integration tests
   mu_run_test(integration_test_addition);
@@ -113,6 +119,7 @@ const static char *all_tests() {
   mu_run_test(integration_test_is_symbol);
   mu_run_test(integration_test_eq);
   mu_run_test(integration_test_AND);
+  mu_run_test(integration_test_factorial);
   return 0;
 }
 

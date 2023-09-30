@@ -50,9 +50,10 @@ SExpression evaluate(InterpreterObj &interpreter, const ConsCell &conscell) {
 }
 
 SExpression evaluate(InterpreterObj &interpreter, const SExpression &expression) {
-  return std::visit([&interpreter](const auto &data) -> SExpression {
+  auto res = std::visit([&interpreter](const auto &data) -> SExpression {
     return evaluate(interpreter, data);
   }, expression.get());
+  return res;
 }
 
 int interpret(std::vector<std::shared_ptr<SExpression>> expressions) {

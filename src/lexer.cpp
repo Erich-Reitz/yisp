@@ -74,6 +74,11 @@ void scanToken(Scanner &scanner) {
 //   case '\'':
 //     addToken(scanner, TokenType::QUOTE);
 //     break;
+  case ';':
+    while ((peek(scanner) != '\n') && (isAtEnd(scanner) == false)) {
+      advance(scanner) ;
+    }
+    break;
   case ' ':
   case '\r':
   case '\t':
