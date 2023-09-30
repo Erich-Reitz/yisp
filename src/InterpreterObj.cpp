@@ -31,6 +31,7 @@ InterpreterObj::InterpreterObj() {
     {"AND?", &builtins::And},
     {"OR?", &builtins::Or},
 
+    {"cond", &builtins::Cond},
     // challenges
     {"list", &builtins::List},
   };

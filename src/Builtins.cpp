@@ -259,6 +259,20 @@ SExpression Cdr(InterpreterObj &interpreter, const SExpression &arg) {
 }
 
 
+SExpression Cond(InterpreterObj &interpreter, const SExpression &arg) {
+  CHECK_MIN_ARITY("cond", arg, 1);
+  for (const auto &conditionValuePair : arg) {
+    const auto &conditionalExpr = conditionValuePair.UnsafeFirst();
+    const auto &resultExpr = conditionValuePair.UnsafeNext();
+    const auto conditionalResult = evaluate(interpreter, conditionalExpr);
+    if (!conditionalResult.IsNil()) {
+      return evaluate(interpreter, resultExpr);
+    }
+  }
+  return Atom(AtomKind::NIL);
+}
+
+
 
 
 

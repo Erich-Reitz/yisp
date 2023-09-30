@@ -29,4 +29,5 @@ SExpression List(InterpreterObj &interpreter, const SExpression &arg) ;
 SExpression Car(InterpreterObj &interpreter, const SExpression &arg);
 SExpression Cdr(InterpreterObj &interpreter, const SExpression &arg);
 SExpression Cons(InterpreterObj &interpreter, const SExpression &arg);
+SExpression Cond(InterpreterObj &interpreter, const SExpression &arg);
 }
