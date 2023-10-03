@@ -11,12 +11,7 @@
 
 
 namespace yisp::lexer {
-void seenString(Scanner &scanner);
-void seenNumber(Scanner &scanner);
-void seenIdentifier(Scanner &scanner);
-
-
-void seenNumber(Scanner &scanner) {
+static void seenNumber(Scanner &scanner) {
   while (isdigit(peek(scanner))) {
     advance(scanner);
   }
@@ -34,7 +29,7 @@ void seenNumber(Scanner &scanner) {
 }
 
 
-void seenIdentifier(Scanner &scanner) {
+static void seenIdentifier(Scanner &scanner) {
   while (isalnum(peek(scanner)) || peek(scanner) == '?') {
     advance(scanner);
   }
@@ -45,7 +40,7 @@ void seenIdentifier(Scanner &scanner) {
 
 }
 
-void seenString(Scanner &scanner) {
+static void seenString(Scanner &scanner) {
   while (peek(scanner) != '\"' && !isAtEnd(scanner)) {
     if (peek(scanner) == '\n') {
       scanner.line += 1;
@@ -62,7 +57,7 @@ void seenString(Scanner &scanner) {
   addToken(scanner, TokenType::ATOM, literal);
 }
 
-void scanToken(Scanner &scanner) {
+static void scanToken(Scanner &scanner) {
   char c = advance(scanner);
   switch (c) {
   case '(':

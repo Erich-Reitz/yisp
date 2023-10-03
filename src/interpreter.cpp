@@ -14,11 +14,7 @@
 
 
 namespace yisp::interpreter {
-SExpression evaluate(InterpreterObj &interpreter, const Atom &atm) ;
-SExpression evaluate(InterpreterObj &interpreter, const ConsCell &conscell);
-
-
-SExpression evaluate(InterpreterObj &interpreter, const Atom &atm) {
+static SExpression evaluate(InterpreterObj &interpreter, const Atom &atm) {
   if (atm.kind == AtomKind::IDENTIFIER) {
     const auto key = std::get<std::string>(atm.value);
     if (interpreter.values.find(key) != interpreter.values.end()) {
@@ -30,7 +26,7 @@ SExpression evaluate(InterpreterObj &interpreter, const Atom &atm) {
   return atm;
 }
 
-SExpression evaluate(InterpreterObj &interpreter, const ConsCell &conscell) {
+static SExpression evaluate(InterpreterObj &interpreter, const ConsCell &conscell) {
   const auto &car = *conscell.first.get();
   // if we have a conscell like (5 nil), (a nil), ((list 1 2 3) nil) we just want to return the value
   if(conscell.isterminal()) {

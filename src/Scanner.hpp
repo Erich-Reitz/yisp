@@ -21,7 +21,6 @@ struct Scanner {
 
 
 [[nodiscard]] bool isAtEnd(const Scanner &scanner);
-void scanToken(Scanner &scanner);
 char advance(Scanner &scanner);
 void addToken(Scanner &scanner, TokenType typ);
 void addToken(Scanner &scanner, TokenType typ, std::optional<Atom> literal);
