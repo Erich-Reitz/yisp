@@ -125,10 +125,10 @@ SExpression IsNil(InterpreterObj &interpreter, const SExpression &arg) {
   CHECK_ARITY("NIL?", arg, 1);
   auto it = arg.begin();
   if (evaluate(interpreter, *it).IsNil()) {
-    return Atom(AtomKind::NIL);
+    return Atom(AtomKind::TRUE);
   }
 
-  return Atom(AtomKind::TRUE);
+  return Atom(AtomKind::NIL);
 }
 
 
