@@ -85,6 +85,10 @@ const static char *integration_test_is_symbol() {
   return runIntegrationTest(test_name, std::source_location::current().function_name());
 }
 
+const static char *integration_test_is_nil() {
+  const std::string test_name = "NIL?";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
 
 const static char *integration_test_eq() {
   const std::string test_name = "eq";
@@ -117,6 +121,7 @@ const static char *all_tests() {
   mu_run_test(integration_test_is_number) ;
   mu_run_test(integration_test_is_list);
   mu_run_test(integration_test_is_symbol);
+  mu_run_test(integration_test_is_nil);
   mu_run_test(integration_test_eq);
   mu_run_test(integration_test_AND);
   mu_run_test(integration_test_factorial);

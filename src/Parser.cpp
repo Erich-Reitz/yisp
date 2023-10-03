@@ -69,6 +69,9 @@ bool match(Parser &parser, TokenTypes... types) {
 }
 
 [[nodiscard]] std::shared_ptr<SExpression> sExpression(Parser &parser) {
+  if (match(parser, TokenType::RIGHT_PAREN)) {
+    return std::make_shared<SExpression>(Atom(AtomKind::NIL));
+  }
   auto sentinel = std::make_shared<SExpression>(ConsCell{nullptr, Atom(AtomKind::NIL)});
   auto currentCell = sentinel;
 
@@ -107,7 +110,8 @@ std::vector<std::shared_ptr<SExpression>> parse(const std::vector<Token> &tokens
   auto parser = Parser(tokens);
   std::vector<std::shared_ptr<SExpression>> expressions;
   while (!isAtEnd(parser)) {
-    expressions.push_back(expression(parser));
+    const auto &expr = expression(parser);
+    expressions.push_back(expr);
   }
   return expressions;
 }
