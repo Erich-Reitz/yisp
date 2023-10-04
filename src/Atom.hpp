@@ -62,9 +62,15 @@ inline std::ostream &operator<<(std::ostream &os, const Atom &Atom) {
     return os;
   }
 
+  if (Atom.kind == AtomKind::STRING) {
+    os << "\"" << std::get<std::string>(Atom.value) << "\"";
+    return os;
+  }
+
   std::visit([&os](auto &&arg) {
     os << arg;
   }, Atom.value);
+
 
   return os;
 }

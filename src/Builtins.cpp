@@ -168,7 +168,7 @@ SExpression Set(InterpreterObj &interpreter, const SExpression &arg) {
   const auto varname = arg.UnsafeFirst().UnsafeGetStringOfStringOrIden();
   const auto initalizer = arg.UnsafeNext();
   interpreter.values[varname] = evaluate(interpreter, initalizer);
-  return Atom(AtomKind::STRING, varname);
+  return Atom(AtomKind::IDENTIFIER, varname);
 }
 
 
