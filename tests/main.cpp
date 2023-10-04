@@ -107,6 +107,29 @@ const static char *integration_test_factorial() {
 }
 
 
+const static char *integration_test_less() {
+  const std::string test_name = "less";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+const static char *integration_test_greater() {
+  const std::string test_name = "greater";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+const static char *integration_test_division() {
+  const std::string test_name = "division";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+
+
+const static char *integration_test_OR() {
+  const std::string test_name = "OR?";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+
 const static char *all_tests() {
   // integration tests
   mu_run_test(integration_test_addition);
@@ -125,6 +148,10 @@ const static char *all_tests() {
   mu_run_test(integration_test_eq);
   mu_run_test(integration_test_AND);
   mu_run_test(integration_test_factorial);
+  mu_run_test(integration_test_less);
+  mu_run_test(integration_test_greater);
+  mu_run_test(integration_test_division);
+  mu_run_test(integration_test_OR);
   return 0;
 }
 
