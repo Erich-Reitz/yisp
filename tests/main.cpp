@@ -129,6 +129,18 @@ const static char *integration_test_OR() {
   return runIntegrationTest(test_name, std::source_location::current().function_name());
 }
 
+const static char *integration_test_car() {
+  const std::string test_name = "car";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+const static char *integration_test_cdr() {
+  const std::string test_name = "cdr";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+
+
 
 const static char *all_tests() {
   // integration tests
@@ -152,6 +164,8 @@ const static char *all_tests() {
   mu_run_test(integration_test_greater);
   mu_run_test(integration_test_division);
   mu_run_test(integration_test_OR);
+  mu_run_test(integration_test_car);
+  mu_run_test(integration_test_cdr);
   return 0;
 }
 
