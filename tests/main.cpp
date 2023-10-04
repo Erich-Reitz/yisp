@@ -139,6 +139,12 @@ const static char *integration_test_cdr() {
   return runIntegrationTest(test_name, std::source_location::current().function_name());
 }
 
+const static char *integration_test_cons() {
+  const std::string test_name = "cons";
+  return runIntegrationTest(test_name, std::source_location::current().function_name());
+}
+
+
 
 
 
@@ -166,6 +172,7 @@ const static char *all_tests() {
   mu_run_test(integration_test_OR);
   mu_run_test(integration_test_car);
   mu_run_test(integration_test_cdr);
+  mu_run_test(integration_test_cons);
   return 0;
 }
 

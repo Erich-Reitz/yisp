@@ -240,7 +240,7 @@ SExpression IsSymbol(InterpreterObj &interpreter, const SExpression &arg) {
 }
 
 SExpression Cons(InterpreterObj &interpreter, const SExpression &arg) {
-  CHECK_ARITY("cons", arg, 1);
+  CHECK_ARITY("cons", arg, 2);
   auto it = arg.begin();
   const auto &unevaluatedArg1 = *it;
   ++it;
