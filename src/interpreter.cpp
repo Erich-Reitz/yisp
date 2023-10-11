@@ -18,7 +18,7 @@ static SExpression evaluate(InterpreterObj &interpreter, const Atom &atm) {
   if (atm.kind == AtomKind::IDENTIFIER) {
     const auto key = std::get<std::string>(atm.value);
     if (interpreter.values.find(key) != interpreter.values.end()) {
-      return interpreter.values[std::get<std::string>(atm.value)] ;
+      return interpreter.values[key] ;
     }
     const auto err_string = "Undefined identifier: " + key ;
     throw std::runtime_error(err_string.c_str());
