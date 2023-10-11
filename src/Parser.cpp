@@ -7,23 +7,24 @@
 #include "Expression.hpp"
 
 namespace yisp::parser {
+[[nodiscard]] static std::shared_ptr<SExpression> sExpression(Parser &parser) ;
 
 Parser::Parser(const std::vector<Token> &tokens_) : tokens(tokens_), current(0) {};
 
 
-[[nodiscard]] Token peek(const Parser &parser) {
+[[nodiscard]] static Token peek(const Parser &parser) {
   return parser.tokens.at(parser.current);
 }
 
-[[nodiscard]] bool isAtEnd(const Parser &parser) {
+[[nodiscard]] static  bool isAtEnd(const Parser &parser) {
   return peek(parser).typ == TokenType::F_EOF;
 }
 
-[[nodiscard]] Token previous(Parser &parser) {
+[[nodiscard]] static  Token previous(Parser &parser) {
   return parser.tokens.at(parser.current -1);
 }
 
-[[nodiscard]] bool check(const Parser &parser, const TokenType typ) {
+[[nodiscard]] static bool check(const Parser &parser, const TokenType typ) {
   if (isAtEnd(parser)) {
     return false;
   }
@@ -31,14 +32,14 @@ Parser::Parser(const std::vector<Token> &tokens_) : tokens(tokens_), current(0) 
   return peek(parser).typ == typ;
 }
 
-Token advance(Parser &parser) {
+static Token advance(Parser &parser) {
   if (!isAtEnd(parser)) {
     parser.current += 1;
   }
   return previous(parser);
 }
 
-Token consume(Parser &parser, const TokenType typ, const std::string &message) {
+static Token consume(Parser &parser, const TokenType typ, const std::string &message) {
   if (check(parser, typ)) {
     return advance(parser);
   }
@@ -47,7 +48,7 @@ Token consume(Parser &parser, const TokenType typ, const std::string &message) {
 }
 
 template <typename... TokenTypes>
-bool match(Parser &parser, TokenTypes... types) {
+static bool match(Parser &parser, TokenTypes... types) {
   TokenType typeArray[] = { types... };
   for (TokenType type : typeArray) {
     if (check(parser, type)) {
@@ -59,7 +60,7 @@ bool match(Parser &parser, TokenTypes... types) {
 }
 
 
-[[nodiscard]] yisp::Atom  literal(Parser &parser) {
+[[nodiscard]] static yisp::Atom  literal(Parser &parser) {
   if (match(parser, TokenType::ATOM)) {
     const Token lit = previous(parser);
     return lit.literal.value();
@@ -68,7 +69,14 @@ bool match(Parser &parser, TokenTypes... types) {
   return Atom(AtomKind::NIL);
 }
 
-[[nodiscard]] std::shared_ptr<SExpression> sExpression(Parser &parser) {
+[[nodiscard]] static std::shared_ptr<SExpression> expression(Parser &parser) {
+  if (match(parser, TokenType::LEFT_PAREN)) {
+    return sExpression(parser);
+  }
+  return std::make_shared<SExpression>(literal(parser));
+}
+
+[[nodiscard]] static std::shared_ptr<SExpression> sExpression(Parser &parser) {
   if (match(parser, TokenType::RIGHT_PAREN)) {
     return std::make_shared<SExpression>(Atom(AtomKind::NIL));
   }
@@ -98,12 +106,7 @@ bool match(Parser &parser, TokenTypes... types) {
   return nullptr;
 }
 
-[[nodiscard]] std::shared_ptr<SExpression> expression(Parser &parser) {
-  if (match(parser, TokenType::LEFT_PAREN)) {
-    return sExpression(parser);
-  }
-  return std::make_shared<SExpression>(literal(parser));
-}
+
 
 
 std::vector<std::shared_ptr<SExpression>> parse(const std::vector<Token> &tokens) {
